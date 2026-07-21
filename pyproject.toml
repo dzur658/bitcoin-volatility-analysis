@@ -1,0 +1,13 @@
+[project]
+name = "bitcoin-volatility-analysis"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "binance-api-wrapper",
+    "pandas>=3.0.3",
+]
+
+[tool.uv.sources]
+binance-api-wrapper = { git = "https://github.com/dzur658/binance-api-wrapper.git" }
