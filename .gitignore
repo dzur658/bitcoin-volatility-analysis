@@ -216,3 +216,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ignore data dirs
+data-preprocessing/hourly-gap-filling/*
+data-preprocessing/unnormalized-feature-engineering/*
+data-preprocessing/hourly-data-api-out/*
