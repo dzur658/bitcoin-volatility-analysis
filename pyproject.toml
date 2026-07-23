@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "binance-api-wrapper",
+    "ipykernel>=7.3.0",
     "pandas>=3.0.3",
 ]
 
