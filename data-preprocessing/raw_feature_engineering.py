@@ -27,6 +27,9 @@ def construct_liquidity_features(df):
     # Amihud Illiquidity (Price impact per dollar traded)
     df['amihud_illiq_1'] = np.abs(df['log_ret_1d']) / (dollar_vol + EPSILON)
 
+    # fix exploding amihud illiquidity values coming from synthetic flat bars
+    df.loc[df['volume'] == 0, 'amihud_illiq_1'] = 0
+
     # rolling 21d
     df['amihud_illiq_21'] = df['amihud_illiq_1'].rolling(window=504).mean()
     
