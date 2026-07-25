@@ -112,7 +112,7 @@ def construct_returns_features(df):
         df[f'log_ret_{name}'] = np.log(df['close'] / df['close'].shift(h))
         
     # Intraday (Intra-bar) and Overnight (Inter-bar)
-    df['intraday_ret'] = np.log(df['close'] / (df['open'] + EPSILON))
+    df['intraday_ret'] = np.log(df['close'] / (df['open']))
     
     # we drop overnight gap here because it is not relevant for crypto, we have full 24 hour cycles for our coins
     
