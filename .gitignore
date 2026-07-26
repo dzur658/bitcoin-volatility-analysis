@@ -221,3 +221,6 @@ __marimo__/
 data-preprocessing/hourly-gap-filling/*
 data-preprocessing/unnormalized-feature-engineering/*
 data-preprocessing/hourly-data-api-out/*
+
+# ignore master csv
+data-preprocessing/market-master-df.csv
