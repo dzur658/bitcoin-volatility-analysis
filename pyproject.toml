@@ -9,6 +9,7 @@ dependencies = [
     "ipykernel>=7.3.0",
     "pandas>=3.0.3",
     "pyarrow>=25.0.0",
+    "pyflakes>=3.4.0",
     "scikit-learn>=1.9.0",
 ]
 
