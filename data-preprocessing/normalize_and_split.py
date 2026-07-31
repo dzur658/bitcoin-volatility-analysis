@@ -54,7 +54,7 @@ def main():
     assert np.isclose(real_data.mean(), 0.0), f"Mean is not zero: {real_data.mean()}"
     assert np.isclose(real_data.std(), 1.0), f"Std is not one: {real_data.std()}"
 
-    export_dir = "data-preprocessing/normalized-features"
+    export_dir = "normalized-features"
 
     # make directory if it doesn't exist
     os.makedirs(export_dir, exist_ok=True)

@@ -223,5 +223,7 @@ data-preprocessing/unnormalized-feature-engineering/*
 data-preprocessing/hourly-data-api-out/*
 data-preprocessing/normalized-features/*
 
+normalized-features/*
+
 # ignore master csv
 data-preprocessing/market-master-df.csv
