@@ -7,7 +7,7 @@ from sklearn.preprocessing import StandardScaler
 def main():
     master_df = pd.read_csv("data-preprocessing/market-master-df.csv")
 
-    export_dir = "data-preprocessing/normalized-features"
+    export_dir = "normalized-features"
 
     master_df['open_time'] = pd.to_datetime(master_df['open_time'])
     master_df = master_df.sort_values(by=['open_time', 'symbol']).reset_index(drop=True)
@@ -36,15 +36,15 @@ def main():
     master_df.loc[eval_valid_mask, feature_cols]  = scaler.transform(master_df.loc[eval_valid_mask, feature_cols])
     master_df.loc[test_valid_mask, feature_cols]  = scaler.transform(master_df.loc[test_valid_mask, feature_cols])
 
-    # Filter to just the training split
-    train_df = master_df[train_mask]
-    train_validity = master_df[train_valid_mask]
+    normalized_train_df = master_df.loc[train_valid_mask]
+    normalized_eval_df  = master_df.loc[eval_valid_mask]
+    normalized_test_df  = master_df.loc[test_valid_mask]
 
     # Pick a feature to test (e.g., 'open')
-    feature_to_test = 'open'
+    feature_to_test = 'log_ret_1d'
 
     # Extract ONLY the rows where the validity mask is 1 (real data)
-    real_data = train_df.loc[train_df['valid_mask'] == True, feature_to_test]
+    real_data = normalized_train_df[feature_to_test]
 
     # Check the statistics
     print(f"Mean: {real_data.mean():.6f}")
@@ -54,23 +54,15 @@ def main():
     assert np.isclose(real_data.mean(), 0.0), f"Mean is not zero: {real_data.mean()}"
     assert np.isclose(real_data.std(), 1.0), f"Std is not one: {real_data.std()}"
 
-    export_dir = "normalized-features"
-
     # make directory if it doesn't exist
     os.makedirs(export_dir, exist_ok=True)
 
     # export training dataset and validity mask to parquet
-    train_df.to_parquet(os.path.join(export_dir, "train_df.parquet"), index=False)
+    normalized_train_df.to_parquet(os.path.join(export_dir, "train_df.parquet"), index=False)
 
-    # export evaluation dataset and validity mask to parquet
-    eval_df = master_df[eval_mask]
+    normalized_eval_df.to_parquet(os.path.join(export_dir, "eval_df.parquet"), index=False)
 
-    eval_df.to_parquet(os.path.join(export_dir, "eval_df.parquet"), index=False)
-
-    # export test dataset and validity mask to parquet
-    test_df = master_df[test_mask]
-
-    test_df.to_parquet(os.path.join(export_dir, "test_df.parquet"), index=False)
+    normalized_test_df.to_parquet(os.path.join(export_dir, "test_df.parquet"), index=False)
 
 if __name__ == "__main__":
     main()
